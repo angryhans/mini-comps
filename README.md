@@ -1,4 +1,4 @@
-#Mini-comps
+# Mini-Comps
 
 Learning Html/CSS/Javascript with making a lot of mini components. \
 And do not use any frameworks, such as Jquery,Bootstrap, React, or Vue.

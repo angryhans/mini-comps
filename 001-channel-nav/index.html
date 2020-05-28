@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>001-channel-nav</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div id="nav" class="nav-div">
+        <ul id="navWrap" class="nav-ul">
+            <li class="nav-li current">推荐<span class="slider"></span></li>
+            <li class="nav-li">两会<span class="slider"></span></li>
+            <li class="nav-li">视频<span class="slider"></span></li>
+            <li class="nav-li">娱乐<span class="slider"></span></li>
+            <li class="nav-li">军事<span class="slider"></span></li>
+            <li class="nav-li">汽车<span class="slider"></span></li>
+            <li class="nav-li">体育<span class="slider"></span></li>
+            <li class="nav-li">时尚<span class="slider"></span></li>
+            <li class="nav-li">经济<span class="slider"></span></li>
+            <li class="nav-li">股票<span class="slider"></span></li>
+            <li class="nav-li">基金<span class="slider"></span></li>
+            <li class="nav-li">教育<span class="slider"></span></li>
+            <li class="nav-li">科技<span class="slider"></span></li>
+        </ul>
+    </div>
+</body>
+
+<style>
+    /* override user agent style sheet */
+    body,
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        overflow-x: hidden;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+    .nav-div {
+        background-color: #f8f8f8;
+        height: 40px;
+        text-align: center;
+        border-bottom: 1px solid #f0f0f0;
+        overflow: hidden;
+    }
+
+    .nav-li {
+        /* diff from inline block */
+        display: inline-block;
+        font-size: 16px;
+        color: #666;
+        line-height: 40px;
+        padding: 0 16px;
+        width: 42px;
+    }
+
+    .nav-li.current {
+        color: #38f;
+    }
+
+    .nav-li.current span {
+        background-color: #38f;
+    }
+
+    .nav-ul {
+        position: fixed;
+        left: 0;
+        white-space: nowrap;
+        transition: left 500ms;
+        transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1);
+    }
+
+    span.slider {
+        height: 2px;
+        display: block;
+    }
+</style>
+
+<script>
+    //How to?
+    //1.Calculate the "distance" between the screen center and the button center.
+    //2.Update offset left of the ul elment using the "distance"
+
+    const navUl = document.getElementById("navWrap");
+    const navWidth = navUl.offsetWidth;
+    const screenWidth = screen.width;
+    const center = Math.ceil(screenWidth / 2);
+    const originOffsetLeft = navUl.offsetLeft;
+    const navButtonWidth = document.getElementsByClassName("nav-li")[0].offsetWidth;
+    const navButtonWidthHalf = Math.ceil(navButtonWidth / 2);
+
+    //bind click event
+    var navLis = document.getElementsByClassName("nav-li");
+    var liLength = navLis.length;
+    for (var i = 0; i < liLength; i++) {
+        navLis[i].addEventListener("click", navClick);
+    }
+
+    //click function
+    function navClick() {
+        var navOffsetLeft = 0;
+        var buttonCenter = this.offsetLeft + navButtonWidthHalf;
+        var delta = Math.abs(center - buttonCenter);
+
+        if (buttonCenter < center) { //increase the offsetLeft, let the nav move to the right          
+            navOffsetLeft = originOffsetLeft + delta;
+        } else { //descrease the offsetLeft, let the nav move to the left
+            navOffsetLeft = originOffsetLeft - delta;
+        }
+
+        //handling boundary conditions
+        if (navOffsetLeft >= 0) { //if no more contents on the left
+            navOffsetLeft = 0;
+        } else if ((Math.abs(navOffsetLeft) + screenWidth) > navWidth) { //if no more contents on the right 
+            navOffsetLeft = screenWidth - navWidth
+        }
+
+        navUl.setAttribute("style", "left:" + navOffsetLeft + "px;");
+        highlight(this);
+    }
+
+    //highlight
+    function highlight(e) {
+        for (var i = 0; i < liLength; i++) {
+            navLis[i].setAttribute("class", "nav-li");
+        }
+
+        e.setAttribute("class", "nav-li current");
+    }
+
+</script>
+
+</html>
