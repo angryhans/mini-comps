@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>002-left-side-menu</title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="menu-btn" onclick="showMenu();"></div>
+        <div>
+            <p class="tips">Try to click the menu button on
+                the top left.
+            </p>
+        </div>
+    </div>
+
+    <div id="menuWindow" class="menu-window" onclick="hideMenu();"></div>
+
+    <div id="menuList" class="menu-wrap">
+        <div class="menu-btn" onclick="hideMenu();"></div>
+
+        <div class="aside-header">
+            <div class="user-info">
+                <img src="avatar.png" alt="head_icon" class="head-icon">
+                <a href="#"><span class="login">Sign In</span></a>
+            </div>
+        </div>
+
+        <div>
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon watch"></span>
+                        <span>Watching List</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon fav"></span>
+                        <span>My Favourite</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon order"></span>
+                        <span>My Orders</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon skin"></span>
+                        <span>Skins Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon feedback"></span>
+                        <span>Feedback</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+<style>
+    html,
+    body {
+        height: 100%;
+    }
+
+    body {
+        padding: 0;
+        margin: 0;
+        font-size: 16px;
+        overflow: hidden;
+    }
+
+    a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    ul {
+        list-style-type: none;
+        line-height: 2.5rem;
+    }
+
+    .main {
+        display: block;
+        height: 100%;
+        width: 100%;
+        background-color: lightcyan;
+    }
+
+    div.menu-window {
+        height: 0;
+        width: 100%;
+        background-color: #666;
+        opacity: 0.5;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .menu-wrap {
+        background-color: #fff;
+        width: 65%;
+        height: 100%;
+        transition: left 500ms;
+        transition-timing-function: ease-out;
+        left: -65%;
+        position: absolute;
+        top: 0;
+    }
+
+    .menu-btn {
+        width: 1.2rem;
+        height: 1.2rem;
+        background: url(btn.png) no-repeat;
+        background-position: center;
+        background-size: 1.2rem 1.2rem;
+        padding: 1rem;
+    }
+
+    div.aside-header {
+        border-bottom: 1px solid #f8f8f8;
+    }
+
+    div.user-info {
+        display: flex;
+        align-items: center;
+        width: 12.5rem;
+        margin: 1rem 0 1.2rem 2rem;
+    }
+
+    .head-icon {
+        width: 3.2rem;
+        height: 3.2rem;
+        display: inline-block;
+    }
+
+    .login {
+        margin-left: 0.8rem;
+    }
+
+    span.icon {
+        display: inline-block;
+        width: 0.9rem;
+        height: 0.9rem;
+        padding-right: 0.5rem;
+    }
+
+    span.watch {
+        background: url(heart.png) no-repeat;
+        background-size: 1rem 1rem;
+    }
+
+    span.fav {
+        background: url(star.png) no-repeat;
+        background-size: 1rem 1rem;
+    }
+
+    span.order {
+        background: url(book.png) no-repeat;
+        background-size: 1rem 1rem;
+    }
+
+    span.skin {
+        background: url(clothers.png) no-repeat;
+        background-size: 1rem 1rem;
+    }
+
+    span.feedback {
+        background: url(note.png) no-repeat;
+        background-size: 1rem 1rem;
+    }
+
+    p.tips {
+        text-align: center;
+        margin-top: 3rem;
+        color: #888;
+        padding: 3rem;
+    }
+</style>
+
+<script>
+    function showMenu() {
+        document.getElementById("menuWindow").setAttribute("style", "height:100%;");
+        document.getElementById("menuList").setAttribute("style", "left:0");
+    }
+
+    function hideMenu() {
+        document.getElementById("menuList").setAttribute("style", "left:-65%;");
+        setTimeout(() => {
+            document.getElementById("menuWindow").setAttribute("style", "height:0;")
+        }, 500);
+    }
+</script>
+
+</html>
