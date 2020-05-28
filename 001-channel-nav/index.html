@@ -116,7 +116,7 @@
         }
 
         //handling boundary conditions
-        if (navOffsetLeft >= 0) { //if no more contents on the left
+        if (navOffsetLeft >= 0 || navWidth <= screenWidth) { //if no more contents on the left
             navOffsetLeft = 0;
         } else if ((Math.abs(navOffsetLeft) + screenWidth) > navWidth) { //if no more contents on the right 
             navOffsetLeft = screenWidth - navWidth
